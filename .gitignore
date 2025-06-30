@@ -86,4 +86,5 @@ jspm_packages/
 
 # Terraform
 .terraform/
-.terraform.lock.hcl
+.terraform.*
+
