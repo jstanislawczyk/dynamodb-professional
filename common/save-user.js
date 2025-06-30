@@ -11,9 +11,9 @@ export const saveUser = async (user) => {
 
     try {
         await ddbClient.send(command);
-        console.log("User saved successfully:", user);
+        console.log('User saved successfully:', user);
     } catch (error) {
-        console.error("Error saving user:", error);
+        console.error('Error saving user:', error);
         throw error;
     }
 }

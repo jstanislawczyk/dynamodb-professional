@@ -16,7 +16,7 @@ export const getUserById = async (id, consistentRead = true) => {
         const response = await ddbClient.send(command);
         return response.Item;
     } catch (error) {
-        console.error("Error getting item:", error);
+        console.error('Error getting item:', error);
         throw error;
     }
 }
