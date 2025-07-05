@@ -1,0 +1,32 @@
+{
+  "name": "dynamodb-professional",
+  "version": "1.0.0",
+  "description": "A collection of various techniques, examples, and best practices for working with Amazon DynamoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jstanislawczyk/dynamodb-professional.git"
+  },
+  "keywords": [
+    "DynamoDB",
+    "AWS",
+    "Node.js"
+  ],
+  "author": "Jakub Stanislawczyk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jstanislawczyk/dynamodb-professional/issues"
+  },
+  "homepage": "https://github.com/jstanislawczyk/dynamodb-professional#readme",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.830.0",
+    "@aws-sdk/lib-dynamodb": "^3.830.0"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}
