@@ -13,4 +13,15 @@ resource "aws_dynamodb_table" "documents" {
     name = "version"
     type = "N"
   }
+
+  attribute {
+    name = "name"
+    type = "S"
+  }
+
+  local_secondary_index {
+    name            = "NAME_LSI"
+    projection_type = "ALL"
+    range_key       = "name"
+  }
 }
