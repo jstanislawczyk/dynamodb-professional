@@ -2,6 +2,7 @@ resource "aws_dynamodb_table" "users" {
   name         = "${local.project}-users"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
+  range_key    = "createdAt"
 
   attribute {
     name = "id"
