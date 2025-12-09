@@ -1,5 +1,5 @@
 import {initDDBClient} from '../common/init-ddb-client.js';
-import {BatchWriteCommand, PutCommand} from '@aws-sdk/lib-dynamodb';
+import {BatchWriteCommand} from '@aws-sdk/lib-dynamodb';
 import {sensorEventsTable} from '../common/consts.js';
 
 const buildEvent = (sensorId, value, createdAt, status) => {
