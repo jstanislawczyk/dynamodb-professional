@@ -2,7 +2,7 @@ import {initDDBClient} from '../../common/init-ddb-client.js';
 import {BatchWriteCommand, QueryCommand} from '@aws-sdk/lib-dynamodb';
 import {resourcePrefix} from '../consts.js';
 
-export const templatesPartitionedTable = `${resourcePrefix}-templates-partitioned`;
+const templatesPartitionedTable = `${resourcePrefix}-templates-partitioned`;
 
 const buildTemplate = (tenantId, teamId, userId, name) => {
     const id = crypto.randomUUID();

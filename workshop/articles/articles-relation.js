@@ -1,5 +1,5 @@
-import { initDDBClient } from "../common/init-ddb-client.js";
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { initDDBClient } from "../../common/init-ddb-client.js";
+import { PutCommand, BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
 import { resourcePrefix } from "../consts.js";
 
 const tableName = `${resourcePrefix}-articles-relation`;

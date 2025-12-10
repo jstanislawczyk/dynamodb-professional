@@ -1,4 +1,4 @@
-import { initDDBClient } from "../common/init-ddb-client.js";
+import { initDDBClient } from "../../common/init-ddb-client.js";
 import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
 import { resourcePrefix } from "../consts.js";
 

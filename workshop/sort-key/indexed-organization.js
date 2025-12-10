@@ -2,7 +2,7 @@ import {initDDBClient} from '../../common/init-ddb-client.js';
 import {BatchWriteCommand, QueryCommand} from '@aws-sdk/lib-dynamodb';
 import {resourcePrefix} from '../consts.js';
 
-export const templatesIndexedTable = `${resourcePrefix}-templates-indexed`;
+const templatesIndexedTable = `${resourcePrefix}-templates-indexed`;
 
 const buildTemplate = (tenantId, teamId, userId, name) => {
     return {
