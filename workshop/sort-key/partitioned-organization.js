@@ -23,7 +23,7 @@ const buildTemplates = () => {
         // Templates for tenant 1
         buildTemplate('Tenant-1111', 'Team-1111', 'User-1111', 'Doc 1'),
         buildTemplate('Tenant-1111', 'Team-1111', 'User-1111', 'Doc 2'),
-        buildTemplate('Tenant-1111', 'Team-1111', 'User-2222', 'Doc 2 '),
+        buildTemplate('Tenant-1111', 'Team-1111', 'User-2222', 'Doc 3 '),
         buildTemplate('Tenant-1111', 'Team-2222', 'User-3333', 'Doc 4'),
         // Templates for tenant 2
         buildTemplate('Tenant-2222', 'TeamTenant2', 'UserTeam2', 'Excel'),
@@ -74,15 +74,19 @@ const queryByPrefix = async (tenantId, prefix) => {
     }
 }
 
-(async () => {
+export const handlePartitionedOrganization = async () => {
     const templates = buildTemplates();
     await saveTemplates(templates)
 
-    const byTenant = await queryByPrefix('Tenant-1111', 'TEAM:Team-1111');
-    const byTeam = await queryByPrefix('Tenant-1111', 'TEAM:Team-1111#USER:User-1111');
-    const byUser = await queryByPrefix('Tenant-1111', `TEAM:Team-1111#USER:User-1111#TEMPLATE:${templates[0].id}`);
+    const byTeam = await queryByPrefix('Tenant-1111', 'TEAM:Team-1111');
+    const byUser = await queryByPrefix('Tenant-1111', 'TEAM:Team-1111#USER:User-1111');
+    const template = await queryByPrefix('Tenant-1111', `TEAM:Team-1111#USER:User-1111#TEMPLATE:${templates[0].id}`);
 
-    console.log('By Tenant: ', byTenant);
     console.log('By Team: ', byTeam);
     console.log('By User: ', byUser);
-})();
+    console.log('Template: ', template);
+}
+
+// (async () => {
+//     await handlePartitionedOrganization();
+// })();

@@ -2,9 +2,9 @@ import { initDDBClient } from "../../common/init-ddb-client.js";
 import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
 import { resourcePrefix } from "../consts.js";
 
-const buildEvent = (sensorId, value, createdAt, status) => {
+const buildEvent = (id, sensorId, value, createdAt, status) => {
   return {
-    id: crypto.randomUUID(),
+    id,
     sensorId,
     value,
     createdAt,
@@ -49,7 +49,11 @@ const saveEvents = async (sensorEvents) => {
   }
 };
 
-(async () => {
-  const events = buildEvents();
-  await saveEvents(events);
-})();
+export const handleSparseAlarms = async () => {
+    const events = buildEvents();
+    await saveEvents(events);
+}
+
+// (async () => {
+//   await handleSparseAlarms();
+// })();

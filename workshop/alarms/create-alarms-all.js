@@ -49,7 +49,11 @@ const saveEvents = async (sensorEvents) => {
   }
 };
 
-(async () => {
-  const events = buildEvents();
-  await saveEvents(events);
-})();
+export const handleAllAlarms = async () => {
+    const events = buildEvents();
+    await saveEvents(events);
+}
+
+// (async () => {
+//   await handleAllAlarms();
+// })();

@@ -19,7 +19,7 @@ const buildTemplates = () => {
         // Templates for tenant 1
         buildTemplate('Tenant-1111', 'Team-1111', 'User-1111', 'Doc 1'),
         buildTemplate('Tenant-1111', 'Team-1111', 'User-1111', 'Doc 2'),
-        buildTemplate('Tenant-1111', 'Team-1111', 'User-2222', 'Doc 2 '),
+        buildTemplate('Tenant-1111', 'Team-1111', 'User-2222', 'Doc 3 '),
         buildTemplate('Tenant-1111', 'Team-2222', 'User-3333', 'Doc 4'),
         // Templates for tenant 2
         buildTemplate('Tenant-2222', 'TeamTenant2', 'UserTeam2', 'Excel'),
@@ -60,7 +60,7 @@ const queryByIndex = async (tableName, indexName, keyName, keyValue) => {
             "#pk": keyName,
         },
         ExpressionAttributeValues: {
-            ":pk": { S: String(keyValue) },
+            ":pk": keyValue,
         },
     };
 
@@ -73,7 +73,7 @@ const queryByIndex = async (tableName, indexName, keyName, keyValue) => {
     }
 }
 
-(async () => {
+export const handleIndexedOrganization = async () => {
     const templates = buildTemplates();
     await saveTemplates(templates)
 
@@ -84,4 +84,8 @@ const queryByIndex = async (tableName, indexName, keyName, keyValue) => {
     console.log('By Tenant: ', byTenant);
     console.log('By Team: ', byTeam);
     console.log('By User: ', byUser);
-})();
+}
+
+// (async () => {
+//     await handleIndexedOrganization();
+// })();
