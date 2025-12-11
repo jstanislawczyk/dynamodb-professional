@@ -39,7 +39,11 @@ const saveArticle = async (article) => {
   }
 };
 
-(async () => {
-  const article = buildArticle();
-  await saveArticle(article);
-})();
+export const handleNestedArticles = async () => {
+    const article = buildArticle();
+    await saveArticle(article);
+}
+
+// (async () => {
+//     await handleNestedArticles();
+// })();
