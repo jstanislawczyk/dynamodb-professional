@@ -50,9 +50,9 @@ const saveEvents = async (sensorEvents) => {
 };
 
 export const handleSparseAlarms = async () => {
-    const events = buildEvents();
-    await saveEvents(events);
-}
+  const events = buildEvents();
+  await saveEvents(events);
+};
 
 // (async () => {
 //   await handleSparseAlarms();

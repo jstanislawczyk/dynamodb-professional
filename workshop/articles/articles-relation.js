@@ -73,12 +73,12 @@ const saveComments = async (comments) => {
 };
 
 export const handleRelation = async () => {
-    const article = buildArticle();
-    const comments = buildComments();
+  const article = buildArticle();
+  const comments = buildComments();
 
-    await saveArticle(article);
-    await saveComments(comments);
-}
+  await saveArticle(article);
+  await saveComments(comments);
+};
 
 // (async () => {
 //     await handleRelation();
