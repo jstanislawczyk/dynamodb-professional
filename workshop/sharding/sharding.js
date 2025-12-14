@@ -6,14 +6,15 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 import { resourcePrefix } from "../consts.js";
 
-const shardedTable = `${resourcePrefix}-sharded`;
+const shardedTable = `${resourcePrefix}-sharding`;
 const ddbClient = initDDBClient();
+const shardSize = 5;
 
 const saveCandidate = async (id, name) => {
   let shards = [];
 
-  for (let shard = 0; shard < 6; shard++) {
-    shards.push({ id: `${id}:$${shard}`, name: name, votes: 0 });
+  for (let shard = 0; shard <= shardSize; shard++) {
+    shards.push({ PK: buildPK(id, shard), name: name, votes: 0 });
   }
 
   const saveCommentsRequests = shards.map((comment) => ({
@@ -30,17 +31,17 @@ const saveCandidate = async (id, name) => {
   try {
     await ddbClient.send(command);
 
-    const ids = shards.map((e) => e.id).join(", ");
-    console.log("Comments saved successfully. IDs: ", ids);
+    const ids = shards.map((e) => e.PK).join(", ");
+    console.log("Candidates saved successfully. IDs: ", ids);
   } catch (error) {
-    console.error("Error saving comments:", error);
+    console.error("Error saving shards:", error);
     throw error;
   }
 };
 
 const getTotalVotes = async (id) => {
-  const keys = Array.from({ length: 5 }, (_, i) => ({
-    id: `${id}:${i}`,
+  const keys = Array.from({ length: 5 }, (_, index) => ({
+    PK: buildPK(id, index)
   }));
 
   const res = await ddbClient.send(
@@ -53,21 +54,27 @@ const getTotalVotes = async (id) => {
     })
   );
 
+  console.log({
+      keys
+  })
+
+    console.log(res)
+
   const items = res.Responses?.[shardedTable] ?? [];
 
   return items.reduce((sum, item) => sum + (item.votes || 0), 0);
 };
 
-const incrementVote = async (candidateId) => {
-  const shard = Math.floor(Math.random() * 6);
-  const id = `${candidateId}:${shard}`;
+const incrementVote = async (candidateId, shard) => {
+  const id = buildPK(candidateId, shard);
+    const votes = Math.floor(Math.random() * 1000);
 
   const params = {
     TableName: shardedTable,
-    Key: { id },
-    UpdateExpression: `SET votes = votes + :one`,
+    Key: { PK: id },
+    UpdateExpression: "SET votes = votes + :votes",
     ExpressionAttributeValues: {
-      ":one": 1,
+      ":votes": votes,
     },
     ReturnValues: "UPDATED_NEW",
   };
@@ -80,14 +87,16 @@ export const handleSharding = async () => {
 
   await saveCandidate(id, "John Smith");
 
-  for (let i = 0; i < 10; i++) {
-    await incrementVote(id);
+  for (let i = 0; i <= shardSize; i++) {
+    await incrementVote(id, i);
   }
 
-  const votes = await getTotalVotes();
+  const votes = await getTotalVotes(id);
 
   console.log(`Total votes: ${votes}`);
 };
+
+const buildPK = (id, shard) => `${id}:$${shard}`
 
 // (async () => {
 //   await handleSharding();
