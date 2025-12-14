@@ -18,23 +18,26 @@ const saveDocument = async () => {
 
   try {
     await ddbClient.send(command);
-    console.log("Article saved successfully:", article);
+    console.log("Document saved successfully:", document);
   } catch (error) {
-    console.error("Error saving article:", error);
+    console.error("Error saving document:", error);
     throw error;
   }
+
+  return document;
 };
 
 const updateContent = async (currentDocument, newContent) => {
-  const { id, content } = currentDocument;
+  const { id, version } = currentDocument;
   const params = {
     TableName: tableName,
-    Key: id,
-    UpdateExpression: "SET content = :content",
+    Key: { id },
+    UpdateExpression: "SET content = :newContent, version = version + :one",
     ConditionExpression: "version = :expectedVersion",
     ExpressionAttributeValues: {
-      ":expectedVersion": content.version,
+      ":expectedVersion": version,
       ":newContent": newContent,
+      ":one": 1,
     },
     ReturnValues: "ALL_NEW",
   };
@@ -47,6 +50,7 @@ const updateContent = async (currentDocument, newContent) => {
   } catch (err) {
     if (err.name === "ConditionalCheckFailedException") {
       console.log("Version mismatch — concurrent modification detected.");
+      return;
     }
     throw err;
   }
@@ -55,7 +59,7 @@ const updateContent = async (currentDocument, newContent) => {
 export const handleOptimisticLocking = async () => {
   const document = await saveDocument();
 
-  await Promise.allSettled([
+  await Promise.all([
     updateContent(document, "New version"),
     updateContent(document, "Another version"),
   ]);
