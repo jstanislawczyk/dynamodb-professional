@@ -18,7 +18,7 @@ const buildEvents = () => {
     // Events for sensor-1
     buildEvent("1111", "sensor-1", 23.0, 1756068060, "OK"),
     buildEvent("2222", "sensor-1", 25.5, 1756068120, "OK"),
-    buildEvent("3333", "sensor-1", 30.2, 1756068180, "ALARM "),
+    buildEvent("3333", "sensor-1", 30.2, 1756068180, "ALARM"),
     buildEvent("4444", "sensor-1", 28.4, 1756068240, "ALARM"),
     // Events for sensor-2
     buildEvent("5555", "sensor-2", 31.5, 1756068120, "ALARM"),
