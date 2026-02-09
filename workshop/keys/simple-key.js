@@ -2,19 +2,20 @@ import {initDDBClient} from '../../common/init-ddb-client.js';
 import {BatchWriteCommand} from '@aws-sdk/lib-dynamodb';
 import {resourcePrefix} from '../consts.js';
 
-const buildUser = (id, name, email, phone) => {
+const buildUser = (id, name, email, phone, createdAt) => {
     return {
         id,
         name,
         email,
         phone,
+        createdAt
     };
 };
 
 const buildUsers = () => {
     return [
-        buildUser("1111", "John Doe", "john@mail.com"),
-        buildUser("2222", "Jane Doe", undefined, "123-456-7890"),
+        buildUser("1111", "John Doe", "john@mail.com", undefined, 1770587041),
+        buildUser("2222", "Jane Doe", undefined, "123-456-7890", 1761977041),
     ];
 };
 

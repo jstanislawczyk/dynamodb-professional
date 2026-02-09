@@ -1,7 +1,7 @@
 resource "aws_dynamodb_table" "composite_key" {
   name         = "${local.project}-composite-key"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "id"
+  hash_key     = "documentId"
   range_key    = "version"
 
   attribute {

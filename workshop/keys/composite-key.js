@@ -2,9 +2,9 @@ import {initDDBClient} from '../../common/init-ddb-client.js';
 import {BatchWriteCommand} from '@aws-sdk/lib-dynamodb';
 import {resourcePrefix} from '../consts.js';
 
-const buildDocument = (id, version, teamId, title, createdAt) => {
+const buildDocument = (documentId, version, teamId, title, createdAt) => {
     return {
-        id,
+        documentId,
         version,
         teamId,
         title,
@@ -18,6 +18,7 @@ const buildDocuments = () => {
         buildDocument("1111", 2, "SALES", "DRAFT - Sales summary v2", 1771237012),
         buildDocument("1111", 3, "SALES", "Sales summary - final", 1774567078),
         buildDocument("2222", 1, "MARKETING", "Marketing Strategy", 1696587045),
+        buildDocument("3333", 1, "SALES", "Sales Demo", 1716587344),
     ];
 };
 
