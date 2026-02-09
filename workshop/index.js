@@ -6,11 +6,19 @@ import { handleNestedArticles } from "./articles/articles-nested.js";
 import { handleRelation } from "./articles/articles-relation.js";
 import { handleOptimisticLocking } from "./optimistic-locking/optimistic-locking.js";
 import { handleSharding } from "./sharding/sharding.js";
+import { handleAllUsers } from './keys/simple-key.js';
+import { handleAllDocuments } from './keys/composite-key.js';
+
+const isLiveWorkshop = false;
 
 (async () => {
+  // Keys
+  await handleAllUsers();
+  await handleAllDocuments();
+
   // Sort Key partitioning
   console.log("\n============= SORT KEY PARTITIONING =============");
-  await handleIndexedOrganization();
+  !isLiveWorkshop && await handleIndexedOrganization();
   await handlePartitionedOrganization();
 
   // Sparse Index
@@ -25,7 +33,7 @@ import { handleSharding } from "./sharding/sharding.js";
 
   // Optimistic Locking
   console.log("\n============= OPTIMISTIC LOCKING =============");
-  await handleOptimisticLocking();
+  !isLiveWorkshop && await handleOptimisticLocking();
 
   // Sharding
   console.log("\n============= SHARDING =============");
